@@ -18,7 +18,7 @@ const TaskCreatePage = () => {
 
     return (
         <>
-            <BackButton />
+            <BackButton display="flex" alignItems="center" mb={2} />
             <Container maxWidth="sm">
                 <Typography variant="h4" gutterBottom>
                     Crear Nueva Tarea

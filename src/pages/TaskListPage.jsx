@@ -18,7 +18,7 @@ const TaskListPage = () => {
     return (
         <>
             <Box>
-                <BackButton />
+                <BackButton display="flex" alignItems="center" mb={2}/>
                 <Container>
                     <Typography variant="h4" gutterBottom>
                         Lista de Tareas
