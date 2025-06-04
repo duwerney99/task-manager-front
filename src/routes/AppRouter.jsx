@@ -8,7 +8,7 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<TaskListPage />}/>
+                <Route path="/tasks" element={<TaskListPage />}/>
             </Routes>
         </BrowserRouter>
     )
