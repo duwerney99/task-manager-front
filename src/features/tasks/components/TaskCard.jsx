@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, Typography, Box, Tooltip, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { useNavigate } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteTask } from '../store/tasksThunk';
+import { useDispatch } from 'react-redux';
+import { ConfirmDialog } from '../../../components/common/ConfirmDialog';
+
+
+
 
 const TaskCard = ({ task }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [openDialog, setOpenDialog] = useState(false);
+    const [taskToDelete, setTaskToDelete] = useState(null);
+
+
+
+
     return (
         <Card
             variant="outlined"
@@ -34,7 +49,30 @@ const TaskCard = ({ task }) => {
                         <EditIcon />
                     </IconButton>
                 </Tooltip>
+                <IconButton
+                    color="error"
+                    onClick={() => {
+                        setTaskToDelete(task.id);
+                        setOpenDialog(true);
+                    }}
+                >
+                    <DeleteIcon />
+                </IconButton>
             </CardContent>
+            <ConfirmDialog
+                open={openDialog}
+                onClose={() => {
+                    setOpenDialog(false);
+                    setTaskToDelete(null);
+                }}
+                onConfirm={() => {
+                    dispatch(deleteTask(taskToDelete));
+                    setOpenDialog(false);
+                    setTaskToDelete(null);
+                }}
+                title="Eliminar tarea"
+                description="¿Estás seguro de que deseas eliminar esta tarea? Esta acción no se puede deshacer."
+            />
         </Card>
     );
 };

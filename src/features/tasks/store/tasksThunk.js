@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setTasks } from "./tasksSlice";
-import { createTaskService, editTaskService, getTaskById, getTasks } from "../../../api/tasksApi";
+import { createTaskService, deleteTaskService, editTaskService, getTaskById, getTasks } from "../../../api/tasksApi";
 
 
 export const fetchTasks = createAsyncThunk(
@@ -51,6 +51,20 @@ export const fetchTaskById = createAsyncThunk(
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data || 'Error fetching task');
+    }
+  }
+);
+
+
+export const deleteTask = createAsyncThunk(
+  'tasks/delete',
+  async (id, thunkAPI) => {
+    try {
+      await deleteTaskService(id);
+      thunkAPI.dispatch(fetchTasks());
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || 'Error deleting task');
     }
   }
 );

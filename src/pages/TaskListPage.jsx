@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Card, CircularProgress, Container, Typography, IconButton, Tooltip, Fab } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +6,6 @@ import { fetchTasks } from '../features/tasks/store/tasksThunk';
 import TaskCard from '../features/tasks/components/TaskCard';
 import { BackButton } from '../components/common/BackButton';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
 
 
 const TaskListPage = () => {
@@ -15,6 +14,7 @@ const TaskListPage = () => {
     const { items: tasks, loading } = useSelector((state) => state.tasks);
 
 
+    
     useEffect(() => {
         dispatch(fetchTasks());
     }, []);
@@ -42,11 +42,7 @@ const TaskListPage = () => {
                     ) : (
 
                         tasks.map((task) => (
-                            <Box>
-                                <TaskCard key={task.id} task={task} />
-                                
-                            </Box>
-
+                            <TaskCard key={task.id} task={task} />
                         ))
                     )}
                 </Container>
