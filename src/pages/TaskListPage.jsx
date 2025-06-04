@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
-import { Box, Card, CircularProgress, Container, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Box, Card, CircularProgress, Container, Typography, IconButton, Tooltip, Fab } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks } from '../features/tasks/store/tasksThunk';
 import TaskCard from '../features/tasks/components/TaskCard';
 import { BackButton } from '../components/common/BackButton';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 const TaskListPage = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { items: tasks, loading } = useSelector((state) => state.tasks);
 
@@ -18,16 +23,30 @@ const TaskListPage = () => {
     return (
         <>
             <Box>
-                <BackButton display="flex" alignItems="center" mb={2}/>
+                <BackButton display="flex" alignItems="center" mb={2} />
                 <Container>
-                    <Typography variant="h4" gutterBottom>
-                        Lista de Tareas
-                    </Typography>
+                    <Box>
+                        <Typography variant="h4" gutterBottom>
+                            Lista de Tareas
+                        </Typography>
+                    </Box>
+                    <Box display="flex" justifyContent="flex-end">
+                        <Tooltip title="Crear nueva tarea">
+                            <Fab color="primary" onClick={() => navigate('/tasks/create')}>
+                                <AddIcon />
+                            </Fab>
+                        </Tooltip>
+                    </Box>
                     {loading ? (
                         <Box textAlign="center"><CircularProgress /></Box>
                     ) : (
+
                         tasks.map((task) => (
-                            <TaskCard key={task.id} task={task} />
+                            <Box>
+                                <TaskCard key={task.id} task={task} />
+                                
+                            </Box>
+
                         ))
                     )}
                 </Container>

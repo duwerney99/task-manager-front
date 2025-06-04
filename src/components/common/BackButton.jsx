@@ -8,11 +8,10 @@ export const BackButton = () => {
 
   return (
     <Tooltip title="Volver">
-      <IconButton onClick={() => navigate('/')}>
+      <IconButton onClick={() => navigate(-1)}>
         <ArrowBackIcon />
       </IconButton>
     </Tooltip>
   );
 };
-
 

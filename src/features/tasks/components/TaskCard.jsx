@@ -1,7 +1,10 @@
 import React from 'react';
-import { Card, CardContent, Typography, Box } from '@mui/material';
+import { Card, CardContent, Typography, Box, Tooltip, IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
 
 const TaskCard = ({ task }) => {
+    const navigate = useNavigate();
     return (
         <Card
             variant="outlined"
@@ -26,6 +29,11 @@ const TaskCard = ({ task }) => {
                         Estado: {task.status}
                     </Typography>
                 </Box>
+                <Tooltip title="Editar tarea">
+                    <IconButton onClick={() => navigate(`/tasks/${task.id}/edit`)}>
+                        <EditIcon />
+                    </IconButton>
+                </Tooltip>
             </CardContent>
         </Card>
     );
