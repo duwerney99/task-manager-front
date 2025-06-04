@@ -10,7 +10,7 @@ export const MainLayout = () => {
                     <Typography variant="h6">Gestor de tareas</Typography>
                 </Toolbar>
             </AppBar>
-
+            
             <Container sx={{ mt: 4 }}>
                 <Outlet />
             </Container>

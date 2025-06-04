@@ -6,3 +6,9 @@ export const getTasks = async () => {
   const response = await axios.get(`${BASE_URL}/tasks`);
   return response.data;
 };
+
+
+export const createTaskService = async (taskData) => {
+  const response = await axios.post(`${BASE_URL}/tasks`, taskData);
+  return response.data;
+}

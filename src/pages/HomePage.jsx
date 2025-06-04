@@ -7,7 +7,7 @@ const HomePage = () => {
 
   return (
     <Box textAlign="center">
-      <Typography variant="h3" gutterBottom>Bienvenido al Task Manager</Typography>
+      <Typography variant="h3" gutterBottom>Bienvenido al Gestor de Tareas</Typography>
       <Button variant="contained" onClick={() => navigate('/tasks')}>
         Ver tareas
       </Button>
