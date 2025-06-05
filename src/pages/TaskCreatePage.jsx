@@ -2,18 +2,31 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Box, Button, Container, TextField, Typography, MenuItem } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { createTask } from '../features/tasks/store/tasksThunk';
+import { createTask, updateTask } from '../features/tasks/store/tasksThunk';
 import { useNavigate } from 'react-router-dom';
 import { BackButton } from '../components/common/BackButton';
+import { useSnackbar } from 'notistack';
+
 
 const TaskCreatePage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
+
 
     const onSubmit = async (data) => {
-        await dispatch(createTask(data));
-        navigate('/tasks');
+        try {
+            const result = await dispatch(createTask(data));
+            if (result){
+                enqueueSnackbar('Tarea guardada exitosamente', { variant: 'success' });
+                navigate('/tasks');
+            }else {
+                enqueueSnackbar(`Ocurrio un error al guardar la tarea: ${error}`, { variant: 'error' });
+            }            
+        } catch (error){
+            enqueueSnackbar(`Ocurrio un error al guardar la tarea: ${error}`, { variant: 'error' });
+        } 
     };
 
     return (
