@@ -5,11 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTaskById, updateTask } from '../features/tasks/store/tasksThunk';
 import { BackButton } from '../components/common/BackButton';
+import { useSnackbar } from 'notistack';
 
 export const TaskEditPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
+    
 
     const [task, setTask] = useState(null);
     const [loading, setLoading] = useState(null);
@@ -20,8 +23,9 @@ export const TaskEditPage = () => {
         const loadTask = async () => {
             try {
                 const resultAction = await dispatch(fetchTaskById(id));
-                if (fetchTaskById.fulfilled.match(resultAction)) {
+                if (fetchTaskById) {
                     setTask(resultAction.payload);
+                    enqueueSnackbar('Estado actualizado exitosamente', { variant: 'success' });
                     reset({
                         title: resultAction.payload.title,
                         description: resultAction.payload.description,
@@ -31,7 +35,7 @@ export const TaskEditPage = () => {
                     throw new Error('No se pudo cargar la tarea');
                 }
             } catch (error) {
-                console.error(error);
+                enqueueSnackbar(`Ocurrio un error al actualizar el estado: ${error}`, { variant: 'error' });
             } finally {
                 setLoading(false);
             }
