@@ -5,6 +5,7 @@ import { MainLayout } from '../layouts/MainLayout';
 import HomePage from '../pages/HomePage';
 import TaskCreatePage from '../pages/TaskCreatePage';
 import { TaskEditPage } from '../pages/TaskEditPage';
+import HelpPage from '../pages/HelpPage';
 
 
 
@@ -17,8 +18,8 @@ const AppRouter = () => {
                     <Route path="/tasks" element={<TaskListPage />}/>
                     <Route path="/tasks/create" element={<TaskCreatePage />} />
                     <Route path="/tasks/:id/edit" element={<TaskEditPage />} />
+                    <Route path="/docs" element={<HelpPage />} />
                 </Route>
-                
             </Routes>
         </BrowserRouter>
     )
